@@ -51,7 +51,7 @@ public class BOFEuriborFetcher
 	    = NumberFormat
 	    .getInstance(new Locale("fi","FI"));
 	try {
-	    return fiDouble
+	    return 0.01d*fiDouble //the rates are in percentages
 		.parse(rateText.trim())
 		.doubleValue();
 	}
