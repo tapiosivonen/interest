@@ -15,6 +15,8 @@ import javax.swing.*;
 public class InterestChart
 {
     public static final String myFormat = "yyyy-MM-dd";
+    public static final int DEFAULT_WIDTH = 600;
+    public static final int DEFAULT_HEIGHT = 400;
     private static
         String seriesName(Collection<? extends InterestRateEntry> series)
     {
@@ -127,9 +129,17 @@ public class InterestChart
     public XYChart
         interestAreaChart()
     {
+	return
+	    interestAreaChart(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+    }
+    public XYChart
+	interestAreaChart(int width, int height)
+    {
         XYChart target
             = new XYChartBuilder()
             .title(label)
+	    .height(height)
+	    .width(width)
             .xAxisTitle("duration days")
             .yAxisTitle("percentage rate")
             .build();
@@ -138,6 +148,27 @@ public class InterestChart
             addSeries(target,entryCollectionEntry);
         }
         return target;
+    }
+
+    public RenderedImage
+	interestAreaChartImage()
+    {
+	return
+	    interestAreaChartImage(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+    }
+
+    public RenderedImage
+	interestAreaChartImage(int width, int height)
+    {
+	BufferedImage result
+	    = new BufferedImage(width,
+				height,
+				BufferedImage.TYPE_INT_RGB);
+
+	interestAreaChart(width, height)
+	    .paint(result.createGraphics());
+
+	return result;
     }
 
     public static void main(String args[])
