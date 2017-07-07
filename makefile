@@ -12,5 +12,5 @@ BOFEuriborFetcher:
 	cd bin ; jar cfm ../jar/BOFEuriborFetcher.jar ../res/BOFEuriborFetcher.MF interest/*.class ; cd .. ;
 
 clean:
-	if [ -d "bin/" ] ; then if [ -f "bin/*" ] ; then rm -r bin/* ; fi ; else mkdir bin ; fi ; 
-	if [ -d "jar/" ] ; then if [ -f "jar/*" ] ; then rm -r jar/* ; fi ; else mkdir jar ; fi
+	if [ -d "bin/" ] ; then if [ -n ' ls -A bin ' ] ; then rm -r bin/* ; fi ; else mkdir bin ; fi ; 
+	if [ -d "jar/" ] ; then if [ -n ' ls -A jar ' ] ; then rm -r jar/* ; fi ; else mkdir jar ; fi

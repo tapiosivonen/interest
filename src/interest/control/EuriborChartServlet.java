@@ -1,11 +1,12 @@
 package interest.control;
 
 import javax.servlet.annotation.*;
+import javax.servlet.ServletException;
+import java.io.IOException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.imageio.ImageIO;
-import interest.BOF;
 import interest.BOFEuriborFetcher;
 import interest.image.InterestChart;
 
@@ -17,13 +18,14 @@ public class EuriborChartServlet
 	super();
     }
 
-    private internalErrorResponse(HttpServletResponse resp)
+    private void internalErrorResponse(HttpServletResponse resp)
+	throws IOException
     {
 	resp.sendError(resp.SC_INTERNAL_SERVER_ERROR);
 	return;
     }
     
-    public doGet(HttpServletRequest req,
+    public void doGet(HttpServletRequest req,
 		 HttpServletResponse resp)
 	throws ServletException,
 	       IOException
@@ -32,17 +34,15 @@ public class EuriborChartServlet
 	try {
 	    InterestChart ic
 		= new InterestChart
-		(new BOFEuriboFetcher()
+		(new BOFEuriborFetcher()
 		 .interestRateEntryMap()
 		 .lastEntry()
 		 .getValue()
 		 );
-	    RenderedImage chartImage
-		= ic.interestAreaChartImage();
 
 	    resp.setStatus(resp.SC_OK);
 	    resp.setContentType("image/png");
-	    ImageIO.write(chartImage,
+	    ImageIO.write(ic.interestAreaChartImage(),
 			  "PNG",
 			  resp.getOutputStream()
 			  );

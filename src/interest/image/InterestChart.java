@@ -166,7 +166,7 @@ public class InterestChart
 				BufferedImage.TYPE_INT_RGB);
 
 	interestAreaChart(width, height)
-	    .paint(result.createGraphics());
+	    .paint(result.createGraphics(), width, height);
 
 	return result;
     }
